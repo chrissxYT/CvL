@@ -5,13 +5,13 @@ using System.Runtime.InteropServices;
 // Allgemeine Informationen über eine Assembly werden über die folgenden
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die einer Assembly zugeordnet sind.
-[assembly: AssemblyTitle("cvl")]
+[assembly: AssemblyTitle("CvL")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("cvl")]
+[assembly: AssemblyCompany("chrissx Media Inc.")]
+[assembly: AssemblyProduct("CvirtualLinuXx")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyTrademark("chrissx")]
 [assembly: AssemblyCulture("")]
 
 // Durch Festlegen von ComVisible auf FALSE werden die Typen in dieser Assembly
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Die folgende GUID bestimmt die ID der Typbibliothek, wenn dieses Projekt für COM verfügbar gemacht wird
-[assembly: Guid("e6e562f9-2f85-49b9-83fd-39060fd2f9ba")]
+[assembly: Guid("046ba7d4-997a-4adf-8a9c-43e91bf47866")]
 
 // Versionsinformationen für eine Assembly bestehen aus den folgenden vier Werten:
 //

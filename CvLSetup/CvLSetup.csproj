@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E6E562F9-2F85-49B9-83FD-39060FD2F9BA}</ProjectGuid>
+    <ProjectGuid>{F5214555-A394-4DB7-BF3C-EBEAC4C56688}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>cvl</RootNamespace>
-    <AssemblyName>cvl</AssemblyName>
+    <RootNamespace>CvLSetup</RootNamespace>
+    <AssemblyName>CvLSetup</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
