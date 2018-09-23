@@ -16,7 +16,7 @@ namespace CvLSetup
         {
             Console.WriteLine("Installing CvL...");
             Console.WriteLine("Seetting up internal variables...");
-            string tool_url = "domaingoeshereslashcvlexe";
+            string tool_url = "https://chrissx.ga/cdn/cvl/cvl.exe";
             string appdata = Registry.CurrentUser.OpenSubKey("Volatile Environment", false).GetValue("APPDATA").ToString();
             string cvl = Path.Combine(appdata, "CvL");
             string bin = Path.Combine(cvl, "bin");
