@@ -119,7 +119,46 @@ namespace cvl
             }
             else if(args[0] == "upgrade")
             {
-
+                program[] programs = parse_dict(dic_path);
+                foreach(string f in Directory.GetFiles(ver_path))
+                {
+                    string prg_name = Path.GetFileName(f);
+                    program prg = programs.First((p) => p.name == prg_name);
+                    if (prg == null)
+                    {
+                        Console.Write($"Package {prg_name} does no longer exist in the database, ");
+                        Console.Write("it will be left on your machine, but you won't get upgrades, ");
+                        Console.WriteLine("from now on it won't be checked by CvL anymore.");
+                        File.Delete(f);
+                    }
+                    else
+                    {
+                        int cv = int.Parse(File.ReadAllText(f));
+                        int nv = prg.version;
+                        if (nv > cv)
+                        {
+                            Console.WriteLine($"Upgrading {prg_name}...");
+                            string tmp = Path.GetTempFileName();
+                            foreach (string m in prg.mirrors)
+                            {
+                                try
+                                {
+                                    wc.DownloadFile(m, tmp);
+                                    goto success;
+                                }
+                                catch{}
+                            }
+                            Console.WriteLine($"All mirrors for {prg_name} failed, leaving old version there.");
+                            continue;
+                        success:
+                            string prg_bin = Path.Combine(bin_path, prg_name + ".exe");
+                            File.Delete(prg_bin);
+                            File.Copy(tmp, prg_bin);
+                            File.WriteAllText(f, nv.ToString());
+                            Console.WriteLine($"Successfully upgraded {prg_name}.");
+                        }
+                    }
+                }
             }
             else if(args[0] == "remove")
             {
