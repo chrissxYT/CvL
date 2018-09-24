@@ -75,6 +75,8 @@ namespace cvl
                         File.Delete(path);
                     foreach (string m in prg.mirrors)
                     {
+			    if(m == "")
+				    continue;
                         Console.WriteLine($"Trying to download {prg.name} from {m}.");
                         try
                         {
@@ -97,6 +99,8 @@ namespace cvl
                 List<program> programs = new List<program>();
                 foreach (string url in download_utf8_lines(dict_url))
                 {
+                    if(url == "")
+			    continue;
                     string[] p = download_utf8_lines(url);
                     string[] m = new string[p.Length - 2];
                     Array.Copy(p, 2, m, 0, m.Length);
@@ -141,6 +145,8 @@ namespace cvl
                             string tmp = Path.GetTempFileName();
                             foreach (string m in prg.mirrors)
                             {
+				    if(m == "")
+					    continue;
                                 try
                                 {
                                     wc.DownloadFile(m, tmp);
