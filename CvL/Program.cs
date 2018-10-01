@@ -61,7 +61,7 @@ namespace cvl
                 for (int i = 1; i < args.Length; i++)
                 {
                     program prg = programs.First((p) => p.name == args[i]);
-                    if (prg == null)
+                    if (prg == default(program))
                     {
                         Console.WriteLine($"Cannot find program {args[i]}.");
                         Environment.Exit(1);
@@ -75,12 +75,13 @@ namespace cvl
                         File.Delete(path);
                     foreach (string m in prg.mirrors)
                     {
-			    if(m == "")
-				    continue;
+			            if(m == "")
+				            continue;
                         Console.WriteLine($"Trying to download {prg.name} from {m}.");
                         try
                         {
                             wc.DownloadFile(m, path);
+                            goto successfully_downloaded;
                         }
                         catch
                         {
@@ -90,7 +91,7 @@ namespace cvl
                     Console.WriteLine($"All the mirrors of {prg.name} failed.");
                     continue;
                 successfully_downloaded:
-                    File.WriteAllText(Path.Combine(ver_path, prg_name), prg.version.ToString());
+                    File.WriteAllText(Path.Combine(ver_path, prg.name), prg.version.ToString());
                     Console.WriteLine($"Successfully downloaded {prg.name}.");
                 }
             }
@@ -128,7 +129,7 @@ namespace cvl
                 {
                     string prg_name = Path.GetFileName(f);
                     program prg = programs.First((p) => p.name == prg_name);
-                    if (prg == null)
+                    if (prg == default(program))
                     {
                         Console.Write($"Package {prg_name} does no longer exist in the database, ");
                         Console.Write("it will be left on your machine, but you won't get upgrades, ");
@@ -186,10 +187,10 @@ namespace cvl
                 string name = null;
                 int version = -1;
                 List<string> mirrors = new List<string>();
-                StringBuilder str = new StringBuilder(Encoding.UTF8.GetChars(new[] {i}));
+                StringBuilder str = new StringBuilder(Encoding.UTF8.GetString(new[] {(byte)i}));
                 while ((i = s.ReadByte()) != lfbyte)
                 {
-                    char c = Encoding.UTF8.GetChars(new[] {i})[0];
+                    char c = Encoding.UTF8.GetChars(new[] {(byte)i})[0];
                     if(c == ' ')
                     {
                         if(name == null)
@@ -221,6 +222,23 @@ namespace cvl
             this.name = name;
             this.version = version;
             this.mirrors = mirrors;
+        }
+        static bool arrequ(string[] s1, string[] s2)
+        {
+            if (s1.LongLength != s2.LongLength)
+                return false;
+            for (long i = 0; i < s1.LongLength; i++)
+                if (s1[i] != s2[i])
+                    return false;
+            return true;
+        }
+        public static bool operator==(program p1, program p2)
+        {
+            return p1.name == p2.name && p1.version == p2.version && arrequ(p1.mirrors, p2.mirrors);
+        }
+        public static bool operator!=(program p1, program p2)
+        {
+            return !(p1 == p2);
         }
     }
 }
